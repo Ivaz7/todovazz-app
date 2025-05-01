@@ -10,7 +10,7 @@ interface InputWithValidationProps extends React.InputHTMLAttributes<HTMLInputEl
   message?: string
 }
 
-export function InputWithValidation({
+export default function InputWithValidation({
   label,
   validationType,
   message,

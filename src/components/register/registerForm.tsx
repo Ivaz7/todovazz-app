@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import { InputWithValidation } from "@/components/ui/input-with-validation"
+import InputWithValidation from "@/components/ui/input-with-validation"
 
 type RegisterFormValues = {
   name: string
@@ -21,7 +21,7 @@ type RegisterFormValues = {
   confirmPassword: string
 }
 
-export function RegisterForm() {
+export default function RegisterForm() {
   const {
     register,
     handleSubmit,

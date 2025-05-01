@@ -1,10 +1,10 @@
 import { RiCalendarTodoFill } from 'react-icons/ri'
 
-const Header = ({ 
-  rightside
-}: {
-  rightside: React.ReactNode
-}) => {
+interface RighsideChildren {
+  rightside: React.ReactNode,
+}
+
+export default function Header ({ rightside }: RighsideChildren) {
   return (
     <header className="flex justify-between items-center p-4 border-b border-neutral-700 text-white">
       <div className='flex flex-row gap-2 items-center'>
@@ -19,5 +19,3 @@ const Header = ({
     </header>
   );
 };
-
-export default Header;

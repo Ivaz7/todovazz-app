@@ -12,14 +12,14 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import { InputWithValidation } from "@/components/ui/input-with-validation"
+import InputWithValidation from "@/components/ui/input-with-validation"
 
 type LoginFormValues = {
   email: string
   password: string
 }
 
-export function LoginForm() {
+export default function LoginForm() {
   const {
     register,
     handleSubmit,

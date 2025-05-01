@@ -1,23 +1,33 @@
-import { RegisterForm } from "@/components/register/registerForm";
+import { Suspense, lazy } from "react";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/ui/header";
 import Link from "next/link";
+import CardFormSkeleton from "@/components/ui/skeletons/card-form-skeleton";
+import HeaderSkeleton from "@/components/ui/skeletons/header-skeleton";
 
-export default function RegisterPage () {
+// Dynamically import components with Suspense fallback
+const RegisterForm = lazy(() => import("@/components/register/registerForm"));
+const Header = lazy(() => import("@/components/ui/header"));
+
+export default function RegisterPage() {
   return (
     <section className="h-screen flex flex-col">
-      <Header 
-        rightside={
-          <Link href="/login">
-            <Button>
-              Login
-            </Button>
-          </Link>
-        }
-      />
+      <Suspense fallback={<HeaderSkeleton />}>
+        <Header 
+          rightside={
+            <Link href="/login">
+              <Button>
+                Login
+              </Button>
+            </Link>
+          }
+        />
+      </Suspense>
+      
       <div className="flex justify-center items-center grow-1">
-        <RegisterForm />
-      </div>    
+        <Suspense fallback={<CardFormSkeleton count={4} />}>
+          <RegisterForm />
+        </Suspense>
+      </div>
     </section>
-  )
+  );
 }
