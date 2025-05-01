@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Todovazz App",
-  description: "todo app using login authentication",
+  description: "A full-stack Todo App built with Next.js App Router, TypeScript, MongoDB (via Mongoose), and JWT authentication. Supports user registration, login, and personal todo management with secure password hashing and token-based auth.",
 };
 
 export default function RootLayout({
