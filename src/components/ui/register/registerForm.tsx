@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card"
 
 import InputWithValidation from "@/components/ui/input-with-validation"
+import axios from "axios"
 
 type RegisterFormValues = {
   name: string
@@ -29,8 +30,20 @@ export default function RegisterForm() {
     watch,
   } = useForm<RegisterFormValues>()
 
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log("Register Data:", data)
+  const onSubmit = async (data: RegisterFormValues) => {
+    try {
+      const { name, email, password } = data;
+      const response = await axios.post("/api/auth/register", { name, email, password });
+  
+      console.log("Register success:", response.data);
+      // Redirect ke login / dashboard, display toast, etc
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Register error:", error.response?.data || error.message)
+      } else {
+        console.error("Unexpected error:", error)
+      }
+    }
   }
 
   const password = watch("password")
