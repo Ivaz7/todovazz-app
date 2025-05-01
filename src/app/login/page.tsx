@@ -1,12 +1,19 @@
 import { LoginForm } from "@/components/login/loginForm";
-import HeaderAuth from "@/components/ui/header";
+import { Button } from "@/components/ui/button";
+import Header from "@/components/ui/header";
+import Link from "next/link";
 
 export default function loginPage () {
   return (
     <section className="h-screen flex flex-col">
-      <HeaderAuth 
-        buttonLink="/register"
-        buttonText="Sign Up"
+      <Header 
+        rightside={
+          <Link href="/register">
+            <Button>
+              Sign Up
+            </Button>
+          </Link>
+        }
       />
       <div className="flex justify-center items-center grow-1">
         <LoginForm />
