@@ -14,26 +14,31 @@ import {
 
 import { InputWithValidation } from "@/components/ui/input-with-validation"
 
-type LoginFormValues = {
+type RegisterFormValues = {
+  name: string
   email: string
   password: string
+  confirmPassword: string
 }
 
-export function LoginForm() {
+export function RegisterForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormValues>()
+    watch,
+  } = useForm<RegisterFormValues>()
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log("Login Data:", data)
+  const onSubmit = (data: RegisterFormValues) => {
+    console.log("Register Data:", data)
   }
+
+  const password = watch("password")
 
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>Login</CardTitle>
+        <CardTitle>Register</CardTitle>
       </CardHeader>
       <form 
         onSubmit={handleSubmit(onSubmit)}
@@ -41,6 +46,16 @@ export function LoginForm() {
       >
         <CardContent>
           <div className="grid w-full items-center gap-4">
+            <InputWithValidation
+              label="Name"
+              placeholder="Provide your name"
+              validationType={errors.name ? "error" : null}
+              message={errors.name?.message}
+              {...register("name", {
+                required: "Name is required",
+              })}
+            />
+
             <InputWithValidation
               label="Email"
               placeholder="Provide Email Address"
@@ -65,10 +80,23 @@ export function LoginForm() {
                 required: "Password is required",
               })}
             />
+
+            <InputWithValidation
+              label="Confirm Password"
+              type="password"
+              placeholder="Repeat your Password"
+              validationType={errors.confirmPassword ? "error" : null}
+              message={errors.confirmPassword?.message}
+              {...register("confirmPassword", {
+                required: "Please confirm your password",
+                validate: value =>
+                  value === password || "Passwords do not match",
+              })}
+            />
           </div>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Button type="submit">Login</Button>
+          <Button type="submit">Sign Up</Button>
         </CardFooter>
       </form>
     </Card>
