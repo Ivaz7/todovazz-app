@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ReactQueryProvider } from "@/lib/queryClient";
 
 export const metadata: Metadata = {
   title: "Todovazz App",
@@ -16,7 +17,9 @@ export default function RootLayout({
       <body
 
       >
-        {children}
+        <ReactQueryProvider>
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );
