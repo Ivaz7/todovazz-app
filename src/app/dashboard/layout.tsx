@@ -1,4 +1,4 @@
-import DashNavLinks from "@/components/dashboard/dashNavLinks";
+import DashNavLinks from "@/components/ui/dashboard/dashNavLinks";
 
 export default function dashboardLayout({
   children,

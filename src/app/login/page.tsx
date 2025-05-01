@@ -5,7 +5,7 @@ import CardFormSkeleton from "@/components/ui/skeletons/card-form-skeleton";
 import HeaderSkeleton from "@/components/ui/skeletons/header-skeleton";
 
 // Dynamically import components with Suspense fallback
-const LoginForm = lazy(() => import("@/components/login/loginForm"));
+const LoginForm = lazy(() => import("@/components/ui/login/loginForm"));
 const Header = lazy(() => import("@/components/ui/header"));
 
 export default function LoginPage() {
