@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(
-      { message: "User registered successfully", userId: newUser._id },
+      { message: "User Registered Successfully", userId: newUser._id, name },
       { status: 201 }
     );
   } catch (error) {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ReactQueryProvider } from "@/lib/queryClient";
 import Footer from "@/components/ui/footer";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Todovazz App",
@@ -21,6 +22,7 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
           {children}
+          <Toaster />
           <Footer />
         </ReactQueryProvider>
       </body>
