@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -11,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { toast } from 'sonner'
 
 import InputWithValidation from "@/components/ui/input-with-validation"
 import axios from "axios"
@@ -29,14 +31,22 @@ export default function RegisterForm() {
     formState: { errors },
     watch,
   } = useForm<RegisterFormValues>()
-
+  
+  const router = useRouter();
+  
   const onSubmit = async (data: RegisterFormValues) => {
     try {
       const { name, email, password } = data;
       const response = await axios.post("/api/auth/register", { name, email, password });
   
-      console.log("Register success:", response.data);
-      // Redirect ke login / dashboard, display toast, etc
+      const { message } = response.data;
+      const day = new Date();
+
+      toast(message, {
+        description: day.toDateString
+      })
+      
+      router.push("/login")
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Register error:", error.response?.data || error.message)

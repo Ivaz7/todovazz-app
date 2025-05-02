@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card"
 
 import InputWithValidation from "@/components/ui/input-with-validation"
+import axios from "axios"
 
 type LoginFormValues = {
   email: string
@@ -26,8 +27,25 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<LoginFormValues>()
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log("Login Data:", data)
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      const {
+        email,
+        password,
+      } = data
+      const response = await axios.post("/api/auth/login", { email, password })
+
+      const { message } = response.data;
+
+      console.log(message);
+      // redirect to the dashboard
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Login error:", error.response?.data || error.message)
+      } else {
+        console.error("Unexpected error:", error)
+      }
+    }
   }
 
   return (

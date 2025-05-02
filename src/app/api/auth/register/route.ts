@@ -5,7 +5,11 @@ import { connectDB } from "@/lib/mongodb/mongoose";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = await req.json();
+    const { 
+      name, 
+      email, 
+      password 
+    } = await req.json();
 
     if (!name || !email || !password) {
       return NextResponse.json({ message: "Missing fields" }, { status: 400 });
@@ -15,7 +19,10 @@ export async function POST(req: Request) {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return NextResponse.json({ message: "Email already exists" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Email already exists" }, 
+        { status: 400 }
+      );
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
