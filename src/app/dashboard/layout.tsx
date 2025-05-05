@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import Header from '@/components/ui/header'
 import { MdOutlineDashboard } from 'react-icons/md'
+import LogOutBtn from '@/components/ui/dashboard/logOutBtn'
 
 export default async function DashboardLayout({
   children,
@@ -38,35 +39,29 @@ export default async function DashboardLayout({
   }
 
   return (
-    <html lang="en">
-      <body className='dark'>
-        <Header 
-          rightside={
-            <Button variant="destructive">
-              Log Out
+    <>
+      <Header 
+        rightside={<LogOutBtn />}
+        leftSide={
+          <>
+            <MdOutlineDashboard size={30} />
+            <h1 className="text-2xl font-bold">
+              Dashboard {decoded.name}
+            </h1>
+          </>
+        }
+      />
+      <main className='min-h-screen p-4 flex flex-col gap-5'>
+        <div className='flex flex-col gap-2'>
+          <div className='flex flex-row justify-between'>
+            <DashNavLinks />
+            <Button variant="outline">
+              Create
             </Button>
-          }
-          leftSide={
-            <>
-              <MdOutlineDashboard size={30} />
-              <h1 className="text-2xl font-bold">
-                Dashboard {decoded.name}
-              </h1>
-            </>
-          }
-        />
-        <main className='min-h-screen p-4 flex flex-col gap-5'>
-          <div className='flex flex-col gap-2'>
-            <div className='flex flex-row justify-between'>
-              <DashNavLinks />
-              <Button variant="outline">
-                Create
-              </Button>
-            </div>
           </div>
-          {children}
-        </main>
-      </body>
-    </html>
+        </div>
+        {children}
+      </main>
+    </>
   )
 }
