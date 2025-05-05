@@ -13,7 +13,8 @@ import {
 } from "@/components/ui/card"
 
 import InputWithValidation from "@/components/ui/input-with-validation"
-import axios from "axios"
+import { useLoginMutation } from "@/hooks/useLoginMutation"
+import { RotatingLines } from "react-loader-spinner"
 
 type LoginFormValues = {
   email: string
@@ -27,68 +28,63 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<LoginFormValues>()
 
+  const loginMutation = useLoginMutation();
+
   const onSubmit = async (data: LoginFormValues) => {
-    try {
-      const {
-        email,
-        password,
-      } = data
-      const response = await axios.post("/api/auth/login", { email, password })
-
-      const { message } = response.data;
-
-      console.log(message);
-      // redirect to the dashboard
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("Login error:", error.response?.data || error.message)
-      } else {
-        console.error("Unexpected error:", error)
-      }
-    }
+    const { email, password } = data;
+    loginMutation.mutate({ email, password })
   }
 
   return (
     <Card className="w-[350px]">
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-      </CardHeader>
-      <form 
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-7"
-      >
-        <CardContent>
-          <div className="grid w-full items-center gap-4">
-            <InputWithValidation
-              label="Email"
-              placeholder="Provide Email Address"
-              validationType={errors.email ? "error" : null}
-              message={errors.email?.message}
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: "Invalid email address",
-                },
-              })}
-            />
+      {loginMutation.isPending ? (
+        <div className="flex flex-col justify-center gap-3 items-center h-[300px]">
+          <CardTitle>Wait Login</CardTitle>
+          <RotatingLines width="40" strokeColor="#fff" />
+        </div>
+      ) : (
+        <>
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
+          </CardHeader>
+          <form 
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-7"
+          >
+            <CardContent>
+              <div className="grid w-full items-center gap-4">
+                <InputWithValidation
+                  label="Email"
+                  placeholder="Provide Email Address"
+                  validationType={errors.email ? "error" : null}
+                  message={errors.email?.message}
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^\S+@\S+$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
+                />
 
-            <InputWithValidation
-              label="Password"
-              type="password"
-              placeholder="Provide your Password"
-              validationType={errors.password ? "error" : null}
-              message={errors.password?.message}
-              {...register("password", {
-                required: "Password is required",
-              })}
-            />
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-center">
-          <Button type="submit">Login</Button>
-        </CardFooter>
-      </form>
+                <InputWithValidation
+                  label="Password"
+                  type="password"
+                  placeholder="Provide your Password"
+                  validationType={errors.password ? "error" : null}
+                  message={errors.password?.message}
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-center">
+              <Button type="submit">Login</Button>
+            </CardFooter>
+          </form>
+        </>
+      )}
     </Card>
   )
 }

@@ -42,7 +42,8 @@ export default function RegisterForm() {
   return (
     <Card className="w-[350px]">
       {registerMutation.isPending ? (
-        <div className="flex justify-center items-center h-[300px]">
+        <div className="flex flex-col justify-center gap-3 items-center h-[300px]">
+          <CardTitle>Wait Sign Up</CardTitle>
           <RotatingLines width="40" strokeColor="#fff" />
         </div>
       ) : (

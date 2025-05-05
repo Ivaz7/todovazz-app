@@ -12,8 +12,6 @@ export default async function DashboardLayout({
   const cookieStore = await cookies()
   const token = cookieStore.get('todovazzToken')?.value
 
-  console.log("token",token)
-
   if (!token) {
     redirect('/login')
   }
@@ -22,8 +20,6 @@ export default async function DashboardLayout({
     // verify token
     const decoded = jwt.verify(token, process.env.JWT_KEY!) as { userId: string } 
     
-    console.log("decoded",decoded)
-
     if (!decoded) {
       redirect('/login')
     }

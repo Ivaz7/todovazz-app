@@ -1,25 +1,23 @@
-import { useMutation } from "@tanstack/react-query"
-import axios from "axios"
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { useRouter } from "next/navigation"
-import { toast } from "sonner"
+import { toast } from "sonner";
 
-type RegisterInput = {
-  name: string
-  email: string
-  password: string
+type LoginInput = {
+  email: string,
+  password: string,
 }
 
-export function useRegisterMutation() {
-  const router = useRouter()
-
+export function useLoginMutation () {
+  const router = useRouter();
+  
   return useMutation({
     mutationFn: async ({
-      name,
       email,
       password
-    }: RegisterInput) => {
-      const response = await axios.post("/api/auth/register", { name, email, password })
-      return response.data
+    }: LoginInput) => {
+      const response = await axios.post("api/auth/login", { email, password })
+      return response.data;
     },
     onSuccess: (data) => {
       toast(
@@ -29,7 +27,7 @@ export function useRegisterMutation() {
         }
       )
 
-      router.push("/login")
+      router.push("/dashboard")
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
