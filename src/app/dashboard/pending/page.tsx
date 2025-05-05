@@ -1,7 +1,7 @@
 export default function Pending () {
   return (
-    <div>
+    <section>
       Pending Page
-    </div>
+    </section>
   )
 }

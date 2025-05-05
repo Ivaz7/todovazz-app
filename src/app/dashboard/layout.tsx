@@ -3,6 +3,9 @@ import { redirect } from 'next/navigation'
 import jwt from 'jsonwebtoken'
 import DashNavLinks from "@/components/ui/dashboard/dashNavLinks"
 import { toast } from 'sonner'
+import { Button } from '@/components/ui/button'
+import Header from '@/components/ui/header'
+import { MdOutlineDashboard } from 'react-icons/md'
 
 export default async function DashboardLayout({
   children,
@@ -16,9 +19,11 @@ export default async function DashboardLayout({
     redirect('/login')
   }
 
+  let decoded;
+
   try {
     // verify token
-    const decoded = jwt.verify(token, process.env.JWT_KEY!) as { userId: string } 
+    decoded = jwt.verify(token, process.env.JWT_KEY!) as { name: string } 
     
     if (!decoded) {
       redirect('/login')
@@ -35,8 +40,32 @@ export default async function DashboardLayout({
   return (
     <html lang="en">
       <body className='dark'>
-        <DashNavLinks />
-        {children}
+        <Header 
+          rightside={
+            <Button variant="destructive">
+              Log Out
+            </Button>
+          }
+          leftSide={
+            <>
+              <MdOutlineDashboard size={30} />
+              <h1 className="text-2xl font-bold">
+                Dashboard {decoded.name}
+              </h1>
+            </>
+          }
+        />
+        <main className='min-h-screen p-4 flex flex-col gap-5'>
+          <div className='flex flex-col gap-2'>
+            <div className='flex flex-row justify-between'>
+              <DashNavLinks />
+              <Button variant="outline">
+                Create
+              </Button>
+            </div>
+          </div>
+          {children}
+        </main>
       </body>
     </html>
   )

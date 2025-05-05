@@ -1,7 +1,7 @@
 export default function DoneTask () {
   return (
-    <div>
+    <section>
       Done Page
-    </div>
+    </section>
   )
 }

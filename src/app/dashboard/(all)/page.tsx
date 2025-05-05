@@ -1,7 +1,7 @@
 export default function AllTask () {
   return (
-    <div>
+    <section>
       All Page
-    </div>
+    </section>
   )
 }

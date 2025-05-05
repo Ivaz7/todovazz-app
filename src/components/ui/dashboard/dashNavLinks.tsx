@@ -1,11 +1,30 @@
-import Link from "next/link";
+'use client'
 
-export default function DashNavLinks () {
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger
+} from "@/components/ui/tabs";
+
+export default function DashNavLinks() {
+  const path = usePathname();
+
   return (
-    <nav className="mb-4 flex gap-4 border-b pb-2">
-      <Link href="/dashboard/">All</Link>
-      <Link href="/dashboard/pending">Pending</Link>
-      <Link href="/dashboard/done">Done</Link>
-    </nav>
-  )
-} 
+    <Tabs value={path} className="w-6/10">
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger value="/dashboard" asChild>
+          <Link href="/dashboard">All</Link>
+        </TabsTrigger>
+        <TabsTrigger value="/dashboard/pending" asChild>
+          <Link href="/dashboard/pending">Pending</Link>
+        </TabsTrigger>
+        <TabsTrigger value="/dashboard/done" asChild>
+          <Link href="/dashboard/done">Done</Link>
+        </TabsTrigger>
+      </TabsList>
+    </Tabs>
+  );
+}
