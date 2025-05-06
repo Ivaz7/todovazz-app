@@ -1,12 +1,14 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+
 import jwt from 'jsonwebtoken'
-import DashNavLinks from "@/components/ui/dashboard/dashNavLinks"
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import HeaderDashboard from '@/components/ui/dashboard/headerDashboard'
 import { Suspense } from 'react'
+
+import DashNavLinks from "@/components/ui/dashboard/dashNavLinks"
+import HeaderDashboard from '@/components/ui/dashboard/headerDashboard'
 import HeaderSkeleton from '@/components/ui/skeletons/header-skeleton'
+import CreateBtn from '@/components/ui/dashboard/createBtn'
+import { toast } from 'sonner'
 
 export default async function DashboardLayout({
   children,
@@ -24,7 +26,7 @@ export default async function DashboardLayout({
 
   try {
     // verify token
-    decoded = jwt.verify(token, process.env.JWT_KEY!) as { name: string } 
+    decoded = jwt.verify(token, process.env.JWT_KEY!) as { name: string, user_id: string } 
     
     if (!decoded) {
       redirect('/login')
@@ -39,21 +41,19 @@ export default async function DashboardLayout({
   }
 
   return (
-    <>
+    <div className="min-h-screen">
       <Suspense fallback={<HeaderSkeleton />}>
         <HeaderDashboard name={decoded.name} />
       </Suspense>
-      <main className='min-h-screen p-4 flex flex-col gap-5'>
+      <main className='p-10 flex flex-col gap-5'>
         <div className='flex flex-col gap-2'>
           <div className='flex flex-row justify-between'>
             <DashNavLinks />
-            <Button variant="outline">
-              Create
-            </Button>
+            <CreateBtn user_id={decoded.user_id} />
           </div>
         </div>
         {children}
       </main>
-    </>
+    </div>
   )
 }
