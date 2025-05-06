@@ -33,12 +33,7 @@ export default function CreateBtn ({ user_id }: { user_id: string }) {
 
   const onSubmit = async (data: FormVal) => {
     const { description } =  data;
-
-    console.log("description", description)
-    console.log("user_id", user_id)
-
     createTask.mutate({ user_id, description })
-
     reset()
   }
 
