@@ -1,4 +1,3 @@
-import { Button } from "../button";
 import { 
   Table, 
   TableBody, 
@@ -11,6 +10,7 @@ import {
 
 import { FcCheckmark } from "react-icons/fc";
 import { RiProgress5Line } from "react-icons/ri";
+import DropdownTableTask from "./dropdownTableTask";
 
 interface Task {
   description: string,
@@ -55,9 +55,7 @@ export default function TableTask () {
               )}
             </TableCell>
             <TableCell>
-              <Button variant="ghost">
-                ...
-              </Button>
+              <DropdownTableTask status={val.status} />
             </TableCell>
           </TableRow>
         ))}
