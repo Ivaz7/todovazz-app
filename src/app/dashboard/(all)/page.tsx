@@ -1,20 +1,21 @@
+'use client'
+
 import TableTask from "@/components/ui/dashboard/tableTask";
-import type { Task } from "@/lib/types";
+import TableTaskSkeletons from "@/components/ui/skeletons/dashboard/tableTask-skeletons";
+import { useGetTasks } from "@/hooks/useGetTasks";
+import { useUser } from "@/lib/user-context";
 
-const fakeTasks: Task[] = [
-  { description: "Buy groceries", status: false },
-  { description: "Finish the project report", status: true },
-  { description: "Call mom", status: false },
-  { description: "Clean the house", status: true },
-  { description: "Read 10 pages of a book", status: false },
-];
+export default function AllTask () {
+  const { user_id } = useUser();
+  const { data, isPending } = useGetTasks(user_id);
 
-export default async function AllTask () {
-  
+  if (isPending) {
+    return <TableTaskSkeletons />;
+  }
 
   return (
     <section>
-      <TableTask data={fakeTasks} />
+      <TableTask data={data ?? []} />
     </section>
-  )
+  );
 }

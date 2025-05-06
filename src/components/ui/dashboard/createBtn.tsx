@@ -44,7 +44,7 @@ export default function CreateBtn ({ user_id }: { user_id: string }) {
 
   return (
     <Sheet>
-      <SheetTrigger>
+      <SheetTrigger asChild>
         <Button variant="outline">
           Create <FaPlus size={10} />
         </Button>

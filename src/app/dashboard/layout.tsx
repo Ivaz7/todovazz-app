@@ -10,6 +10,7 @@ import HeaderSkeleton from '@/components/ui/skeletons/header-skeleton'
 import CreateBtn from '@/components/ui/dashboard/createBtn'
 import { toast } from 'sonner'
 import NavCreateBtnSkeleton from '@/components/ui/skeletons/dashboard/nav-createbtn-skeleton'
+import { UserProvider } from '@/lib/user-context'
 
 export default async function DashboardLayout({
   children,
@@ -46,15 +47,17 @@ export default async function DashboardLayout({
       <Suspense fallback={<HeaderSkeleton />}>
         <HeaderDashboard name={decoded.name} />
       </Suspense>
-      <main className='p-10 flex flex-col gap-5'>
-        <Suspense fallback={<NavCreateBtnSkeleton />}>
-          <div className='flex flex-row justify-between'>
-            <DashNavLinks />
-            <CreateBtn user_id={decoded.user_id} />
-          </div>
-        </Suspense>
-        {children}
-      </main>
+      <UserProvider value={{ user_id: decoded.user_id, name: decoded.name }}>
+        <main className="p-10 flex flex-col gap-5">
+          <Suspense fallback={<NavCreateBtnSkeleton />}>
+            <div className="flex justify-between">
+              <DashNavLinks />
+              <CreateBtn user_id={decoded.user_id} />
+            </div>
+          </Suspense>
+          {children}
+        </main>
+      </UserProvider>
     </div>
   )
 }

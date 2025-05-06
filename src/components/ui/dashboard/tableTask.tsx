@@ -11,9 +11,9 @@ import {
 import { FcCheckmark } from "react-icons/fc";
 import { RiProgress5Line } from "react-icons/ri";
 import DropdownTableTask from "./dropdownTableTask";
-import type { Task } from "@/lib/types";
+import type { Todo } from "@/lib/types";
 
-export default function TableTask ({ data }: { data: Task[]}) {
+export default function TableTask ({ data }: { data: Todo[]}) {
   return (
     <Table className="w-full">
       <TableCaption>All Task</TableCaption>
@@ -24,11 +24,11 @@ export default function TableTask ({ data }: { data: Task[]}) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((val: Task, inx: number) => (
+        {data.map((val: Todo, inx: number) => (
           <TableRow key={inx}>
             <TableCell>{val.description}</TableCell>
             <TableCell>
-              {val.status 
+              {val.completed 
               ? (
                 <div className="flex gap-1 flex-row justify-start items-center">
                   <FcCheckmark size={15} color="green" />
@@ -43,7 +43,7 @@ export default function TableTask ({ data }: { data: Task[]}) {
               )}
             </TableCell>
             <TableCell>
-              <DropdownTableTask status={val.status} />
+              <DropdownTableTask status={val.completed} />
             </TableCell>
           </TableRow>
         ))}

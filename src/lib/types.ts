@@ -13,9 +13,3 @@ export interface Todo extends Document {
   description: string;
   completed: boolean;
 }
-
-// type of todo
-export interface Task {
-  description: string,
-  status: boolean,
-}
