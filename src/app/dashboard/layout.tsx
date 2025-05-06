@@ -9,6 +9,7 @@ import HeaderDashboard from '@/components/ui/dashboard/headerDashboard'
 import HeaderSkeleton from '@/components/ui/skeletons/header-skeleton'
 import CreateBtn from '@/components/ui/dashboard/createBtn'
 import { toast } from 'sonner'
+import NavCreateBtnSkeleton from '@/components/ui/skeletons/dashboard/nav-createbtn-skeleton'
 
 export default async function DashboardLayout({
   children,
@@ -46,12 +47,12 @@ export default async function DashboardLayout({
         <HeaderDashboard name={decoded.name} />
       </Suspense>
       <main className='p-10 flex flex-col gap-5'>
-        <div className='flex flex-col gap-2'>
+        <Suspense fallback={<NavCreateBtnSkeleton />}>
           <div className='flex flex-row justify-between'>
             <DashNavLinks />
             <CreateBtn user_id={decoded.user_id} />
           </div>
-        </div>
+        </Suspense>
         {children}
       </main>
     </div>
