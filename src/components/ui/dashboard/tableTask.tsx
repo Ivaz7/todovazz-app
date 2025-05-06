@@ -11,21 +11,9 @@ import {
 import { FcCheckmark } from "react-icons/fc";
 import { RiProgress5Line } from "react-icons/ri";
 import DropdownTableTask from "./dropdownTableTask";
+import type { Task } from "@/lib/types";
 
-interface Task {
-  description: string,
-  status: boolean,
-}
-
-const fakeTasks: Task[] = [
-  { description: "Buy groceries", status: false },
-  { description: "Finish the project report", status: true },
-  { description: "Call mom", status: false },
-  { description: "Clean the house", status: true },
-  { description: "Read 10 pages of a book", status: false },
-];
-
-export default function TableTask () {
+export default function TableTask ({ data }: { data: Task[]}) {
   return (
     <Table className="w-full">
       <TableCaption>All Task</TableCaption>
@@ -36,7 +24,7 @@ export default function TableTask () {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {fakeTasks.map((val: Task, inx: number) => (
+        {data.map((val: Task, inx: number) => (
           <TableRow key={inx}>
             <TableCell>{val.description}</TableCell>
             <TableCell>
