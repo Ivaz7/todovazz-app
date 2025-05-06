@@ -15,6 +15,7 @@ import {
 } from "../sheet";
 
 import { useForm } from "react-hook-form";
+import { useCreateTask } from "@/hooks/useCreateTask";
 
 type FormVal = {
   description: string
@@ -28,11 +29,15 @@ export default function CreateBtn ({ user_id }: { user_id: string }) {
     reset
   } = useForm<FormVal>()
 
+  const createTask = useCreateTask();
+
   const onSubmit = async (data: FormVal) => {
     const { description } =  data;
 
     console.log("description", description)
     console.log("user_id", user_id)
+
+    createTask.mutate({ user_id, description })
 
     reset()
   }
