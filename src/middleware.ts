@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('todovazzToken')?.value
   const { pathname } = request.nextUrl
 
-  const isAuthPage = pathname === '/login' || pathname === '/register'
+  const isAuthPage = pathname === '/login' || pathname === '/register' || pathname === "/"
 
   if (!token && !isAuthPage) {
     return NextResponse.redirect(new URL('/login', request.url))
