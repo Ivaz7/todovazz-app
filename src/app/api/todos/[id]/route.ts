@@ -40,7 +40,7 @@ export async function GET(
   context: { params: { id: string } }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = context.params;
     const completedParam = req.nextUrl.searchParams.get("completed");
 
     if (!id) {      
