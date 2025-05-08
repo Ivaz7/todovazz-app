@@ -75,9 +75,12 @@ export async function PATCH(
   try {
     const { id } = context.params;
     const typeParam = req.nextUrl.searchParams.get("type");
-    const { id: idTask } = await req.json();
+    const { 
+      id: idTask, 
+      description 
+    } = await req.json();
 
-    if (!id || !typeParam || !idTask) {      
+    if (!id || !typeParam || !idTask || !description) {      
       return NextResponse.json({ message: "Missing fields" }, { status: 400 });
     }
 
@@ -98,6 +101,25 @@ export async function PATCH(
 
       return NextResponse.json(
         { message: "Set Done Success", todo },
+        { status: 201 }
+      );
+    }
+
+    // update edit task
+    if (typeParam === "description") {
+      const todo = await Todo.findOneAndUpdate({ 
+        _id: idTask,
+        user_id: id 
+      }, {
+        $set: {
+          description
+        }
+      }, {
+        new: true
+      })
+
+      return NextResponse.json(
+        { message: "Edit Description Success", todo },
         { status: 201 }
       );
     }

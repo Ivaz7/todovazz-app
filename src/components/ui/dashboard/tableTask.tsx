@@ -46,6 +46,7 @@ export default function TableTask ({ data }: { data: Todo[]}) {
               <DropdownTableTask 
                 status={val.completed} 
                 id={val._id}
+                description={val.description}
               />
             </TableCell>
           </TableRow>
