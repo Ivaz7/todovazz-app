@@ -68,7 +68,7 @@ export async function GET(
 }
 
 // Update todo list request
-export async function PUT(
+export async function PATCH(
   req: NextRequest,
   context: { params: { id: string } }
 ) {

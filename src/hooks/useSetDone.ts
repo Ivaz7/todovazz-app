@@ -16,7 +16,7 @@ export function useSetDone () {
     }: {
       id: string
     }) => {
-      const response = await axios.put(`/api/todos/${user_id}?type=completed`, { id })
+      const response = await axios.patch(`/api/todos/${user_id}?type=completed`, { id })
       return response.data
     },
     onSuccess: (data) => {
