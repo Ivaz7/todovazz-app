@@ -21,7 +21,7 @@ export function useLogOutMutation () {
     onError: (error) => {
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data?.message || error.message)
-        console.error("Register error:", error.response?.data || error.message)
+        console.error("Log Out error:", error.response?.data || error.message)
       } else {
         toast.error("Unexpected error")
         console.error("Unexpected error:", error)
