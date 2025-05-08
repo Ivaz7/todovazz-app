@@ -1,15 +1,22 @@
-import { Button } from "../button";
+import { Button } from "../../button";
 import { 
   DropdownMenu, 
   DropdownMenuCheckboxItem, 
   DropdownMenuContent, 
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
-} from "../dropdown-menu";
+} from "../../dropdown-menu";
 
 import { CiMenuKebab } from "react-icons/ci";
+import DoneBtnDropdown from "./doneBtn";
 
-export default function DropdownTableTask ({ status }: { status: boolean }) {
+export default function DropdownTableTask ({ 
+  status,
+  id,
+}: { 
+  status: boolean,
+  id: string 
+}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -20,10 +27,7 @@ export default function DropdownTableTask ({ status }: { status: boolean }) {
       <DropdownMenuContent>
         {!status && 
           <>          
-            <DropdownMenuCheckboxItem>
-              Set Done
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuSeparator />
+            <DoneBtnDropdown id={id} />
           </>
         }
         <DropdownMenuCheckboxItem>

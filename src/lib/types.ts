@@ -12,4 +12,5 @@ export interface Todo extends Document {
   user_id: Types.ObjectId; // Refers to the user's ID
   description: string;
   completed: boolean;
+  _id: string;
 }

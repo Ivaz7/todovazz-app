@@ -10,7 +10,7 @@ import {
 
 import { FcCheckmark } from "react-icons/fc";
 import { RiProgress5Line } from "react-icons/ri";
-import DropdownTableTask from "./dropdownTableTask";
+import DropdownTableTask from "./dropdowntable/dropdownTableTask";
 import type { Todo } from "@/lib/types";
 
 export default function TableTask ({ data }: { data: Todo[]}) {
@@ -43,7 +43,10 @@ export default function TableTask ({ data }: { data: Todo[]}) {
               )}
             </TableCell>
             <TableCell>
-              <DropdownTableTask status={val.completed} />
+              <DropdownTableTask 
+                status={val.completed} 
+                id={val._id}
+              />
             </TableCell>
           </TableRow>
         ))}

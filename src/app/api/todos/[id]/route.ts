@@ -24,7 +24,7 @@ export async function POST(req: Request, { params }: { params: { id: string }}) 
       { status: 201 }
     );
   } catch (error) { 
-    console.error("Register error:", error);
+    console.error("Create Task Error:", error);
     return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
   }
 }
@@ -62,7 +62,47 @@ export async function GET(
       { status: 201 }
     );
   } catch (error) { 
-    console.error("Register error:", error);
+    console.error("Get Task Error:", error);
     return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
+  }
+}
+
+// Update todo list request
+export async function PUT(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = context.params;
+  const typeParam = req.nextUrl.searchParams.get("type");
+  const { id: idTask } = await req.json();
+
+  if (!id || !typeParam || !idTask) {      
+    return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+  }
+
+  await connectDB();
+
+  // update set done completed
+  if (typeParam === "completed") {
+    try {
+      const todo = await Todo.findOneAndUpdate({ 
+        _id: idTask,
+        user_id: id 
+      }, {
+        $set: {
+          completed: true
+        }
+      }, {
+        new: true
+      })
+
+      return NextResponse.json(
+        { message: "Set Done Success", todo },
+        { status: 201 }
+      );
+    } catch (error) {
+      console.error("Update Status Error:", error);
+      return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
+    }
   }
 }
