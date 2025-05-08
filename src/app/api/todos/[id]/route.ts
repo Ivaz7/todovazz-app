@@ -37,10 +37,10 @@ interface UserStatus {
 // get data
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string }}
 ) {
   try {
-    const { id } = context.params;
+    const { id } = params;
     const completedParam = req.nextUrl.searchParams.get("completed");
 
     if (!id) {      
@@ -70,10 +70,10 @@ export async function GET(
 // Update todo list request
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string }}
 ) {
   try {
-    const { id } = context.params;
+    const { id } = params;
     const typeParam = req.nextUrl.searchParams.get("type");
     const { 
       id: idTask, 
@@ -132,10 +132,10 @@ export async function PATCH(
 // delete task
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string }}
 ) {
   try {
-    const { id } = context.params;
+    const { id } = params;
     const idTask = req.nextUrl.searchParams.get("idTask");
 
     if (!id || !idTask) {      
