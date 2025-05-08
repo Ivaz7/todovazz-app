@@ -12,6 +12,7 @@ import { FcCheckmark } from "react-icons/fc";
 import { RiProgress5Line } from "react-icons/ri";
 import DropdownTableTask from "./dropdowntable/dropdownTableTask";
 import type { Todo } from "@/lib/types";
+import DateColumnTable from "./dateColumnTable";
 
 export default function TableTask ({ data }: { data: Todo[]}) {
   return (
@@ -20,13 +21,16 @@ export default function TableTask ({ data }: { data: Todo[]}) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-9/10">Description Task</TableHead>
+          <TableHead>Date Created</TableHead>
           <TableHead>Status</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {data.map((val: Todo, inx: number) => (
           <TableRow key={inx}>
             <TableCell>{val.description}</TableCell>
+            <DateColumnTable date={val.createdAt} />
             <TableCell>
               {val.completed 
               ? (

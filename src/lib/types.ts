@@ -13,4 +13,5 @@ export interface Todo extends Document {
   description: string;
   completed: boolean;
   _id: string;
+  createdAt: Date;
 }
