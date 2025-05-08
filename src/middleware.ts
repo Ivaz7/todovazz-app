@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
 
   const isAuthPage = pathname === '/login' || pathname === '/register' || pathname === "/"
 
-  if (!token && !isAuthPage) {
+  if (!token && !isAuthPage || pathname === "/") {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
