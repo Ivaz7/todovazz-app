@@ -55,7 +55,7 @@ export async function GET(
       query.completed = completedParam === "true";
     }
 
-    const todos = await Todo.find(query);
+    const todos = await Todo.find(query).sort({ createdAt: -1 });
 
     return NextResponse.json(
       { message: "Success Get All Task", todos },
