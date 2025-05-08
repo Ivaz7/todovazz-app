@@ -3,9 +3,9 @@ import { connectDB } from "@/lib/mongodb/mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 // create new task
-export async function POST(req: Request, { params }: { params: { id: string }}) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }>}) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const { description } = await req.json();
 
     if (!id || !description) {      
@@ -37,10 +37,10 @@ interface UserStatus {
 // get data
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string }}
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const completedParam = req.nextUrl.searchParams.get("completed");
 
     if (!id) {      
@@ -70,17 +70,17 @@ export async function GET(
 // Update todo list request
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string }}
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const typeParam = req.nextUrl.searchParams.get("type");
     const { 
       id: idTask, 
       description 
     } = await req.json();
 
-    if (!id || !typeParam || !idTask || !description) {      
+    if (!id || !typeParam || !idTask) {      
       return NextResponse.json({ message: "Missing fields" }, { status: 400 });
     }
 
@@ -132,10 +132,10 @@ export async function PATCH(
 // delete task
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string }}
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const idTask = req.nextUrl.searchParams.get("idTask");
 
     if (!id || !idTask) {      
