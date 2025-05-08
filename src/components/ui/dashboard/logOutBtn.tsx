@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { RotatingLines } from 'react-loader-spinner'
+import { FadeLoader } from 'react-spinners'
 
 export default function LogOutBtn () {
   const logOutMutation = useLogOutMutation();
@@ -23,7 +23,7 @@ export default function LogOutBtn () {
         <AlertDialogContent className="flex justify-center w-[350px] h-[200px] items-center">
           <AlertDialogHeader className="flex flex-col items-center gap-2">
             <AlertDialogTitle>Logging out</AlertDialogTitle>
-            <RotatingLines width="40" strokeColor="#fff" />
+            <FadeLoader color="#fff" className="ml-[10px]" />
           </AlertDialogHeader>
         </AlertDialogContent>
       </AlertDialog>

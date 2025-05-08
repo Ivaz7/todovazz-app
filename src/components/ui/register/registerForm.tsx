@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useForm } from "react-hook-form"
-import { RotatingLines } from 'react-loader-spinner'
+import { FadeLoader } from 'react-spinners'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -44,7 +44,7 @@ export default function RegisterForm() {
       {registerMutation.isPending ? (
         <div className="flex flex-col justify-center gap-3 items-center h-[300px]">
           <CardTitle>Wait Sign Up</CardTitle>
-          <RotatingLines width="40" strokeColor="#fff" />
+          <FadeLoader color="#fff" className="ml-[10px]" />
         </div>
       ) : (
         <>

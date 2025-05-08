@@ -14,7 +14,7 @@ import {
 
 import InputWithValidation from "@/components/ui/input-with-validation"
 import { useLoginMutation } from "@/hooks/useLoginMutation"
-import { RotatingLines } from "react-loader-spinner"
+import { FadeLoader } from "react-spinners"
 
 type LoginFormValues = {
   email: string
@@ -40,7 +40,7 @@ export default function LoginForm() {
       {loginMutation.isPending ? (
         <div className="flex flex-col justify-center gap-3 items-center h-[300px]">
           <CardTitle>Wait Login</CardTitle>
-          <RotatingLines width="40" strokeColor="#fff" />
+          <FadeLoader color="#fff" className="ml-[10px]" />
         </div>
       ) : (
         <>
