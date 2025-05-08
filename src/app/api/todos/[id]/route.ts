@@ -40,7 +40,7 @@ export async function GET(
   context: { params: { id: string } }
 ) {
   try {
-    const { id } = context.params;
+    const { id } = await context.params;
     const completedParam = req.nextUrl.searchParams.get("completed");
 
     if (!id) {      
@@ -72,19 +72,19 @@ export async function PATCH(
   req: NextRequest,
   context: { params: { id: string } }
 ) {
-  const { id } = context.params;
-  const typeParam = req.nextUrl.searchParams.get("type");
-  const { id: idTask } = await req.json();
+  try {
+    const { id } = context.params;
+    const typeParam = req.nextUrl.searchParams.get("type");
+    const { id: idTask } = await req.json();
 
-  if (!id || !typeParam || !idTask) {      
-    return NextResponse.json({ message: "Missing fields" }, { status: 400 });
-  }
+    if (!id || !typeParam || !idTask) {      
+      return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+    }
 
-  await connectDB();
+    await connectDB();
 
-  // update set done completed
-  if (typeParam === "completed") {
-    try {
+    // update set done completed
+    if (typeParam === "completed") {
       const todo = await Todo.findOneAndUpdate({ 
         _id: idTask,
         user_id: id 
@@ -100,9 +100,39 @@ export async function PATCH(
         { message: "Set Done Success", todo },
         { status: 201 }
       );
-    } catch (error) {
-      console.error("Update Status Error:", error);
-      return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
     }
+  } catch (error) {
+    console.error("Update Status Error:", error);
+    return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
+  }
+}
+
+// delete task
+export async function DELETE(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  try {
+    const { id } = context.params;
+    const idTask = req.nextUrl.searchParams.get("idTask");
+
+    if (!id || !idTask) {      
+      return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+    }
+
+    await connectDB();
+
+    const todo = await Todo.findByIdAndDelete({ 
+      _id: idTask,
+      user_id: id 
+    })
+
+    return NextResponse.json(
+      { message: "Delete Task Success", todo },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Delete Task Error:", error);
+    return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
   }
 }

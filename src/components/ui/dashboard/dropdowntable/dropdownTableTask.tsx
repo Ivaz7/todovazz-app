@@ -3,12 +3,12 @@ import {
   DropdownMenu, 
   DropdownMenuCheckboxItem, 
   DropdownMenuContent, 
-  DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from "../../dropdown-menu";
 
 import { CiMenuKebab } from "react-icons/ci";
 import DoneBtnDropdown from "./doneBtn";
+import DeleteBtnDropdown from "./deleteBtn";
 
 export default function DropdownTableTask ({ 
   status,
@@ -30,10 +30,7 @@ export default function DropdownTableTask ({
             <DoneBtnDropdown id={id} />
           </>
         }
-        <DropdownMenuCheckboxItem>
-          Delete Task
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuSeparator />
+        <DeleteBtnDropdown id={id} />
         <DropdownMenuCheckboxItem>
           Edit Task
         </DropdownMenuCheckboxItem>
