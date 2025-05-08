@@ -15,7 +15,10 @@ export default function Pending () {
 
   return (
     <section>
-      <TableTask data={data ?? []} />
+      <TableTask 
+        data={data ?? []} 
+        caption="Pending Task"
+      />
     </section>
   );
 }

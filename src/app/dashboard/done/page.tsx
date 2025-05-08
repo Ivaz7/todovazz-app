@@ -15,7 +15,10 @@ export default function Done () {
 
   return (
     <section>
-      <TableTask data={data ?? []} />
+      <TableTask 
+        data={data ?? []} 
+        caption="Done Task"  
+      />
     </section>
   );
 }

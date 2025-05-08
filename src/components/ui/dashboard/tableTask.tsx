@@ -14,10 +14,16 @@ import DropdownTableTask from "./dropdowntable/dropdownTableTask";
 import type { Todo } from "@/lib/types";
 import DateColumnTable from "./dateColumnTable";
 
-export default function TableTask ({ data }: { data: Todo[]}) {
+export default function TableTask ({ 
+  data,
+  caption
+}: { 
+  data: Todo[],
+  caption: string
+}) {
   return (
     <Table className="w-full">
-      <TableCaption>All Task</TableCaption>
+      <TableCaption>{caption}</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-9/10">Description Task</TableHead>

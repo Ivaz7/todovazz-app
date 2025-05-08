@@ -15,7 +15,10 @@ export default function AllTask () {
 
   return (
     <section>
-      <TableTask data={data ?? []} />
+      <TableTask 
+        data={data ?? []} 
+        caption="All Task"
+      />
     </section>
   );
 }
